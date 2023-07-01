@@ -1,0 +1,34 @@
+import requests
+
+def get_github_user_info(username):
+    base_url = 'https://api.github.com/users/'
+        api_url = f'{base_url}{username}'
+	    
+	        # Replace 'PRIVATE_USER_ACCESS_TOKEN' with the private user's personal access token
+		    headers = {
+		            'Authorization': 'Bearer PRIVATE_USER_ACCESS_TOKEN'
+			        }
+				    
+				        try:
+					        response = requests.get(api_url, headers=headers)
+						        response.raise_for_status()
+							        user_info = response.json()
+								        return user_info
+									    except requests.exceptions.RequestException as e:
+									            print('Error:', e)
+										            return None
+
+											    if __name__ == "__main__":
+											        username = 'github_username'  # Replace with the private GitHub username you want to get information for
+												    user_info = get_github_user_info(username)
+												        if user_info:
+													        print(f"GitHub User: {user_info['login']}")
+														        print(f"Name: {user_info['name']}")
+															        print(f"Bio: {user_info['bio']}")
+																        print(f"Followers: {user_info['followers']}")
+																	        print(f"Following: {user_info['following']}")
+																		        print(f"Public Repositories: {user_info['public_repos']}")
+																			        # Add more fields as needed based on the information you want to retrieve
+																				    else:
+																				            print("User not found or an error occurred.")
+
